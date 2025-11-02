@@ -1,0 +1,92 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhuab7pveqav8"]
+
+[ext_resource type="Script" uid="uid://cwdo4a6nxi3lg" path="res://Scripts/event_manager.gd" id="1_fjx5v"]
+[ext_resource type="PackedScene" uid="uid://diqgwioilj5m8" path="res://Scenes/available_events.tscn" id="2_dpjx2"]
+
+[node name="EventManager" type="Node2D"]
+script = ExtResource("1_fjx5v")
+
+[node name="DebugUI" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="DebugUI"]
+layout_mode = 2
+
+[node name="GenerateEventButton" type="Button" parent="DebugUI/VBoxContainer2"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Generate event"
+
+[node name="HSeparator" type="HSeparator" parent="DebugUI/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugUI/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DebugUI/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Event name: "
+
+[node name="Label2" type="Label" parent="DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "default"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="DebugUI/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Event type:"
+
+[node name="Label2" type="Label" parent="DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "default"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="DebugUI/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "Event description: "
+
+[node name="Label2" type="Label" parent="DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "default"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="DebugUI/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Choice 1: "
+
+[node name="Label2" type="Label" parent="DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "default"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="DebugUI/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Choice 2: "
+
+[node name="Label2" type="Label" parent="DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "default"
+
+[node name="Events" type="Node2D" parent="."]
+
+[node name="AvailableEvents" parent="." instance=ExtResource("2_dpjx2")]
+position = Vector2(-150, 52.5)
+
+[connection signal="pressed" from="DebugUI/VBoxContainer2/GenerateEventButton" to="." method="_on_generate_event_button_pressed"]

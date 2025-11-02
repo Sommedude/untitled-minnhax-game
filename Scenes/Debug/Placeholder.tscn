@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0h4tv4oyksyv"]
+[gd_scene load_steps=3 format=3 uid="uid://d0h4tv4oyksyv"]
 
 [ext_resource type="Script" uid="uid://bo2s1aeg3ij32" path="res://Scripts/placeholder.gd" id="1_3awgg"]
+[ext_resource type="PackedScene" uid="uid://bhuab7pveqav8" path="res://Scenes/event_manager.tscn" id="2_18ocl"]
 
 [node name="Placeholder" type="Control"]
 layout_mode = 3
@@ -31,9 +32,13 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -324.0
+offset_top = -204.0
 offset_right = 324.0
-offset_bottom = 88.0
+offset_bottom = -116.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 64
 text = "Placeholder scene"
 horizontal_alignment = 1
+
+[node name="EventManager" parent="." instance=ExtResource("2_18ocl")]
+position = Vector2(9, 52)

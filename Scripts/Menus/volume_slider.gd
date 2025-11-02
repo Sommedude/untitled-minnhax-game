@@ -10,5 +10,4 @@ func _ready() -> void:
 @warning_ignore("shadowed_variable_base_class")
 func _on_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value)) ## When the slider value changes, set whatever its value is 0-1 to a reasonable representation of that in DB
-	print(bus_name)
-	print(AudioServer.get_bus_volume_db(bus_index))
+	print("Audio bus ", bus_name, " changed db to ", AudioServer.get_bus_volume_db(bus_index))

@@ -66,7 +66,6 @@ text = "Master volume"
 
 [node name="MasterVolumeSlider" parent="AspectRatioContainer/Control2/VBoxContainer/VBoxContainer" instance=ExtResource("2_n7p1g")]
 layout_mode = 2
-value = 0.0
 bus_name = "Master"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="AspectRatioContainer/Control2/VBoxContainer"]
@@ -78,7 +77,6 @@ text = "Music"
 
 [node name="MusicVolumeSlider" parent="AspectRatioContainer/Control2/VBoxContainer/VBoxContainer2" instance=ExtResource("2_n7p1g")]
 layout_mode = 2
-value = 0.0
 bus_name = "music"
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="AspectRatioContainer/Control2/VBoxContainer"]

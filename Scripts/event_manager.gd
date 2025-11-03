@@ -2,32 +2,63 @@ extends Node2D
 
 var event_scene = preload("res://Scenes/event.tscn")
 
-#var event0 = {"name":"Birthday", "type":"personal", "description":"It's my birthday, get me a present!", "choice1":"Something home made", "choice2":"Something expensive"}
-#var event1 = {"name":"WorkLate", "type":"generic", "description":"I have to work late again tonight", "choice1":"Are you cheating?", "choice2":"You work so hard!"}
-#var event2 = {"name":"Vacation", "type":"personal", "description":"My friends want me to come on vacation with them", "choice1":"Have a great break!", "choice2":"No way, I'll take you somewhere!"}
-#var event3 = {"name":"Pet", "type":"generic", "description":"I want a pet!", "choice1":"That'll be so cute!", "choice2":"That'll be so much work!"}
-
-@onready var availableEvents = $AvailableEvents.availableEvents
+@onready var availableEvents = $AvailableEvents.availableEvents.duplicate(true) ## Generate a copy of the list of all available events from available_events.tscn. This is our deck of events for this scene.
 
 var pickedEvent = ""
+var playerChoice = ""
 
 func _ready() -> void:
 	print("Event manager ready")
+	$MainContainer/HBoxContainer/VBoxContainer/RemainingEvents/Label2.text = str(len(availableEvents))
+
 
 func _on_generate_event_button_pressed() -> void:
+	## Pick an event from the available list and instantiate it as a scene
 	pick_event()
-	var event = event_scene.instantiate()
+	var event = event_scene.instantiate() ##TODO: set relevant details in the Event scene from the picked event
 	$Events.add_child(event)
 	update_Debug_UI()
-	
+
+
+func _on_reset_events_button_pressed() -> void:
+	## Reset the deck, get the full list of events from available_events.tscn
+	reset_events()
+	update_Debug_UI()
+
+
 func pick_event():
 	print("Picking event")
-	pickedEvent = availableEvents.pick_random()
-	print("Picked event: ", pickedEvent.name)
+	## Pick a random event, then remove it from the deck of events, so we don't get repeat picks
+	if len(availableEvents) > 0:
+		pickedEvent = availableEvents.pick_random()
+		var index = availableEvents.find(pickedEvent, 0)
+		availableEvents.pop_at(index)
+		playerChoice = ""
+	else:
+		push_error("No available events left in event_manager availableEvents")
+		
+func reset_events():
+	print("Resetting events")
+	availableEvents = $AvailableEvents.availableEvents.duplicate(true)
 	
 func update_Debug_UI():
-	$DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer/Label2.text = pickedEvent.name
-	$DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer2/Label2.text = pickedEvent.type
-	$DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer3/Label2.text = pickedEvent.description
-	$DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer4/Label2.text = pickedEvent.choice1
-	$DebugUI/VBoxContainer2/VBoxContainer/HBoxContainer5/Label2.text = pickedEvent.choice2
+	## Chosen event details
+	$MainContainer/HBoxContainer/VBoxContainer2/ChosenEventDetails/EventName/Label2.text = pickedEvent.name
+	$MainContainer/HBoxContainer/VBoxContainer2/ChosenEventDetails/EventType/Label2.text = pickedEvent.type
+	$MainContainer/HBoxContainer/VBoxContainer2/ChosenEventDetails/EventDescription/Label2.text = pickedEvent.description
+	$MainContainer/HBoxContainer/VBoxContainer2/ChosenEventDetails/Choice1/Label2.text = pickedEvent.choice1
+	$MainContainer/HBoxContainer/VBoxContainer2/ChosenEventDetails/Choice2/Label2.text = pickedEvent.choice2
+	
+	## Player chose details
+	#$MainContainer/HBoxContainer/VBoxContainer/PlayerChoice/Label2.text = pickedEvent.choice1 ## TODO: Update this to reflect the player's actual choice
+	if(playerChoice == "choice1"):
+		$MainContainer/HBoxContainer/VBoxContainer/PlayerChoice/Label2.text = pickedEvent.choice1
+	elif(playerChoice == "choice2"):
+		$MainContainer/HBoxContainer/VBoxContainer/PlayerChoice/Label2.text = pickedEvent.choice2
+	else:
+		$MainContainer/HBoxContainer/VBoxContainer/PlayerChoice/Label2.text = ""
+	
+	
+	## Events remaining details
+	$MainContainer/HBoxContainer/VBoxContainer/RemainingEvents/Label2.text = str(len(availableEvents))
+	
